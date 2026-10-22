@@ -20,7 +20,7 @@
 <link rel="preload" as="image" href="g01.jpg" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Pinyon+Script&family=Italiana&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Pinyon+Script&family=Italiana&family=EB+Garamond:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
@@ -44,7 +44,7 @@
   --serif:'Cormorant Garamond',Georgia,serif;
   --script:'Pinyon Script',cursive;
   --italiana:'Italiana',serif;
-  --sans:'Montserrat',system-ui,sans-serif;
+  --sans:'EB Garamond',Georgia,serif;
 }
 
 /* ============ RESET ============ */
@@ -765,6 +765,23 @@ footer .footer-names,footer .footer-date,footer .footer-hr,footer .footer-credit
 .hero-date{margin-top:6px;font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.32em;gap:8px;text-shadow:0 1px 10px rgba(10,28,58,.9),0 0 18px rgba(10,28,58,.6)}
 .hero-bg-overlay{background:linear-gradient(180deg,rgba(6,16,58,.78) 0%,rgba(10,28,70,.48) 22%,rgba(10,28,70,.08) 42%,rgba(10,28,70,0) 62%,rgba(30,58,138,.35) 88%,rgba(30,58,138,.55) 100%)}
 .hero-bg{filter:saturate(.95) contrast(1.04) brightness(.92)}
+
+/* CONTADOR — aleteo pulido: bisagra en el cuerpo para ambas alas */
+.cd-bf .cd-wing,.cd-bf .cd-wing--r{transform-box:fill-box;transform-origin:100% 50%;animation:cdIdle 3.4s cubic-bezier(.45,0,.55,1) infinite;animation-delay:0s}
+.cd-block:nth-child(2) .cd-wing{animation-delay:-.9s}
+.cd-block:nth-child(3) .cd-wing{animation-delay:-1.8s}
+.cd-block:nth-child(4) .cd-wing{animation-delay:-2.6s}
+@keyframes cdIdle{0%,100%{transform:scaleX(1) skewY(0)}50%{transform:scaleX(.78) skewY(-2.5deg)}}
+.cd-block.flap .cd-bf .cd-wing{animation:cdBeat .95s cubic-bezier(.37,0,.63,1) both}
+@keyframes cdBeat{0%{transform:scaleX(1) skewY(0)}16%{transform:scaleX(.22) skewY(-7deg)}34%{transform:scaleX(1.05) skewY(1deg)}52%{transform:scaleX(.42) skewY(-5deg)}72%{transform:scaleX(1.02) skewY(.5deg)}100%{transform:scaleX(1) skewY(0)}}
+.cd-block:nth-child(4).flap .cd-bf .cd-wing{animation:cdBeatSoft .7s cubic-bezier(.37,0,.63,1) both}
+@keyframes cdBeatSoft{0%{transform:scaleX(1)}35%{transform:scaleX(.5) skewY(-4deg)}75%{transform:scaleX(1.03)}100%{transform:scaleX(1)}}
+.cd-block.flap .cd-bf{animation:cdLift .95s cubic-bezier(.34,1.4,.64,1)}
+.cd-block:nth-child(4).flap .cd-bf{animation:cdLiftSoft .7s ease-out}
+@keyframes cdLift{0%{translate:0 0}30%{translate:0 -9px}65%{translate:0 -4px}100%{translate:0 0}}
+@keyframes cdLiftSoft{0%,100%{translate:0 0}40%{translate:0 -4px}}
+.cd-block.flap .cd-num{animation:cdGlow .95s ease-out}
+@keyframes cdGlow{0%,100%{filter:none}30%{filter:drop-shadow(0 0 8px rgba(176,234,235,.9))}}
 </style>
 </head>
 <body>
@@ -1599,7 +1616,7 @@ gsap.fromTo('.date-roman',{opacity:0,letterSpacing:'1em'},{opacity:1,letterSpaci
 const countTarget=new Date('2026-11-21T17:00:00-06:00').getTime();
 const cdEls={d:document.getElementById('cd-d'),h:document.getElementById('cd-h'),m:document.getElementById('cd-m'),s:document.getElementById('cd-s')};
 let lastVals={d:'',h:'',m:'',s:''};
-function flapOf(el){var b=el&&el.closest('.cd-block');if(!b)return;b.classList.remove('flap');void b.offsetWidth;b.classList.add('flap');}
+function flapOf(el){var b=el&&el.closest('.cd-block');if(!b)return;clearTimeout(b._ft);b.classList.remove('flap');void b.offsetWidth;b.classList.add('flap');b._ft=setTimeout(function(){b.classList.remove('flap');},1000);}
 function flipOn(el,newVal){
   if(!el||el.textContent===newVal) return;
   flapOf(el);
