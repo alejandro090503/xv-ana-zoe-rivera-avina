@@ -756,6 +756,15 @@ footer .footer-names,footer .footer-date,footer .footer-hr,footer .footer-credit
 
 @media(prefers-reduced-motion:reduce){
   .familia-card,.loc-card,.dc-card,.rsvp-card,.album-sec .qr-outer,.ft-bf,.album-sec::before,.dc-crown,.bf-fly,.bf-w{animation:none!important}}
+
+/* HERO — textos arriba, la festejada libre */
+.hero{align-items:flex-start}
+.hero-content{padding:clamp(64px,11vh,104px) 24px 0;max-width:460px}
+.hero-wir-heiraten{font-size:13px;letter-spacing:.7em;margin:0 0 10px;font-weight:600}
+.hero-name{font-size:clamp(64px,18vw,112px);line-height:.95;margin-bottom:10px}
+.hero-date{margin-top:6px;font-family:var(--sans);font-weight:600;font-size:11px;letter-spacing:.32em;gap:8px;text-shadow:0 1px 10px rgba(10,28,58,.9),0 0 18px rgba(10,28,58,.6)}
+.hero-bg-overlay{background:linear-gradient(180deg,rgba(6,16,58,.78) 0%,rgba(10,28,70,.48) 22%,rgba(10,28,70,.08) 42%,rgba(10,28,70,0) 62%,rgba(30,58,138,.35) 88%,rgba(30,58,138,.55) 100%)}
+.hero-bg{filter:saturate(.95) contrast(1.04) brightness(.92)}
 </style>
 </head>
 <body>
@@ -818,25 +827,13 @@ footer .footer-names,footer .footer-date,footer .footer-hr,footer .footer-credit
     <div class="hero-frame"></div>
     <div class="hero-frame-corners"></div>
     <div class="hero-content">
-      <svg class="hero-ornament-top" viewBox="0 0 200 40" fill="none" aria-hidden="true">
-        <g stroke="#DCE1E7" stroke-width=".7" fill="none" opacity=".85">
-          <path d="M10 20 Q40 8 70 20"/>
-          <path d="M130 20 Q160 8 190 20"/>
-          <circle cx="100" cy="20" r="4" stroke="#DCE1E7"/>
-          <circle cx="100" cy="20" r="1.5" fill="#DCE1E7" stroke="none"/>
-          <path d="M75 20 L95 20"/><path d="M105 20 L125 20"/>
-        </g>
-      </svg>
-      <p class="hero-invitation" data-anim="hero-invitation">Una invitación a mis XV años</p>
-      <div class="hero-eyebrow" data-anim="hero-eyebrow">Cd. Hidalgo · Mich · 2026</div>
-      <p class="hero-wir-heiraten" data-anim="hero-wh">Mis XV Años</p>
+      <p class="hero-wir-heiraten" data-anim="hero-wh">Mis XV</p>
       <h1 class="hero-name">
         <span class="hero-name-p" data-split="Ana Zoé"></span>
       </h1>
       <div class="hero-date" data-anim="hero-date">
-        <span>Sábado</span><span class="sep">·</span><span>21 de Noviembre</span><span class="sep">·</span><span>2026</span>
+        <span>21 · Nov · 2026</span><span class="sep">·</span><span>Cd. Hidalgo, Mich.</span>
       </div>
-      <div class="hero-place" data-anim="hero-place">Cd. Hidalgo · Michoacán</div>
     </div>
     <div class="hero-scroll" aria-label="Desliza para continuar">Desliza</div>
   </section>
@@ -1497,13 +1494,9 @@ const pChars=splitToChars(document.querySelector('.hero-name-p'));
 function launchInvitation(){
   const heroIn=gsap.timeline({defaults:{ease:'power4.out'},delay:.2});
   heroIn
-    .fromTo('.hero-ornament-top',{opacity:0,y:-18,scale:.9},{opacity:.85,y:0,scale:1,duration:1.2})
-    .fromTo('.hero-invitation',{opacity:0,y:10},{opacity:1,y:0,duration:.9},'-=.8')
-    .fromTo('.hero-eyebrow',{opacity:0,y:12},{opacity:1,y:0,duration:1},'-=.7')
-    .fromTo('.hero-wir-heiraten',{opacity:0,y:8},{opacity:1,y:0,duration:.8},'-=.5')
+    .fromTo('.hero-wir-heiraten',{opacity:0,y:8},{opacity:1,y:0,duration:.8})
     .fromTo(pChars,{opacity:0,y:70,rotateX:-55},{opacity:1,y:0,rotateX:0,duration:1.1,stagger:.04,ease:'power4.out'},'-=.5')
     .fromTo('.hero-date > *',{opacity:0,y:10},{opacity:1,y:0,duration:.7,stagger:.06,ease:'power2.out'},'-=.4')
-    .fromTo('.hero-place',{opacity:0,y:8},{opacity:1,y:0,duration:.8},'-=.4')
     .fromTo('.hero-scroll',{opacity:0},{opacity:.7,duration:.8},'-=.3');
   startParticles();
   if(window.ScrollTrigger) ScrollTrigger.refresh();
@@ -1529,7 +1522,7 @@ function launchInvitation(){
 
   function startMusic(){
     if(!bgMusic) return;
-    try{ bgMusic.currentTime=0; }catch(e){}
+    if(!bgMusic.paused && bgMusic.currentTime>0){ if(bgMusic.volume<.45) gsap.to(bgMusic,{volume:.45,duration:1.5}); if(vinylBtn) vinylBtn.classList.add('is-ready'); return; }
     bgMusic.volume=0;
     bgMusic.play().catch(()=>{});
     gsap.to(bgMusic,{volume:.45,duration:3,ease:'power1.inOut'});
@@ -1590,7 +1583,7 @@ function launchInvitation(){
 // ── HERO PARALLAX ──
 gsap.fromTo('.hero-bg-wrap',{scale:1,yPercent:0},{scale:1.22,yPercent:-7,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});
 gsap.fromTo('.dh-bg',{scale:1,yPercent:4},{scale:1.24,yPercent:-6,ease:'none',scrollTrigger:{trigger:'.date-hero',start:'top bottom',end:'bottom top',scrub:1}});
-gsap.to('.hero-content',{yPercent:-6,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+gsap.fromTo('.hero-content',{y:0,autoAlpha:1},{y:-140,autoAlpha:0,ease:'none',immediateRender:false,scrollTrigger:{trigger:'.hero',start:'top top',end:'55% top',scrub:1.2}});
 
 // ── DATE HERO COUNT-TO ──
 document.querySelectorAll('[data-count-to]').forEach(el=>{
