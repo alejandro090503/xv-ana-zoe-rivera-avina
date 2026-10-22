@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "ana-zoe",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "5893"],
+      "port": 5893
+    }
+  ]
+}
