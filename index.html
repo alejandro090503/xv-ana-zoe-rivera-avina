@@ -601,6 +601,160 @@ footer::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;b
 
 /* ============ REDUCED MOTION ============ */
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}.hero-scroll::after{animation:none}}
+
+/* ════════ VIDA — capa de movimiento Ana Zoé ════════ */
+:root{--silver-grad:linear-gradient(115deg,#5F6873 0%,#AEB6C0 22%,#F4F7FA 42%,#9AA3AE 58%,#E3E8EE 76%,#6E7782 100%)}
+@keyframes silverFlow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+/* Mi Gran Día: fondo en capa propia para poder escalarlo */
+.date-hero::after{display:none}
+.dh-bg{position:absolute;inset:-8% 0;z-index:0;pointer-events:none;will-change:transform;
+  background:linear-gradient(to bottom,rgba(8,20,68,.65) 0%,rgba(8,20,68,.38) 50%,rgba(8,20,68,.65) 100%),url('g02.jpg') center center/cover no-repeat;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.15) 15%,rgba(0,0,0,.55) 30%,black 42%,black 58%,rgba(0,0,0,.55) 70%,rgba(0,0,0,.15) 85%,transparent 100%);
+          mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.15) 15%,rgba(0,0,0,.55) 30%,black 42%,black 58%,rgba(0,0,0,.55) 70%,rgba(0,0,0,.15) 85%,transparent 100%)}
+
+/* Contador: la mariposa aletea cuando cambia su número */
+.cd-block.flap .cd-bf .cd-wing{animation:cdBeat .75s cubic-bezier(.45,0,.3,1)}
+@keyframes cdBeat{0%{transform:rotateY(0)}25%{transform:rotateY(62deg)}50%{transform:rotateY(8deg)}75%{transform:rotateY(48deg)}100%{transform:rotateY(0)}}
+.cd-block.flap .cd-bf{animation:cdLift .75s ease-out}
+@keyframes cdLift{0%,100%{translate:0 0}40%{translate:0 -6px}}
+
+/* Botón de música: mariposa */
+.vinyl-btn.bf-btn{width:76px;height:76px;box-shadow:none;background:radial-gradient(circle at 50% 45%,rgba(255,255,255,.92) 0%,rgba(233,248,248,.78) 55%,rgba(176,234,235,.35) 100%);
+  border:1px solid rgba(126,135,146,.45);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  box-shadow:0 10px 30px rgba(30,58,138,.28),inset 0 1px 0 #fff}
+.vinyl-btn.bf-btn::after{border-color:#9AA3AE}
+.bf-fly{position:absolute;inset:8px 6px 12px;perspective:260px;animation:bfBob 3.2s ease-in-out infinite}
+.bf-w{position:absolute;top:0;width:50%;height:100%;background:url('mariposa-play.png') no-repeat;background-size:200% 100%;
+  filter:drop-shadow(0 3px 4px rgba(10,23,70,.3));animation:bfIdle 3.2s ease-in-out infinite}
+.bf-w.l{left:0;background-position:0 0;transform-origin:100% 50%}
+.bf-w.r{right:0;background-position:100% 0;transform-origin:0 50%;animation-name:bfIdleR}
+.vinyl-btn.is-playing .bf-w{animation-duration:.42s}
+@keyframes bfIdle{0%,100%{transform:rotateY(0)}50%{transform:rotateY(52deg)}}
+@keyframes bfIdleR{0%,100%{transform:rotateY(0)}50%{transform:rotateY(-52deg)}}
+@keyframes bfBob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-4px) rotate(3deg)}}
+.bf-state{position:absolute;right:-2px;bottom:-2px;width:24px;height:24px;border-radius:50%;background:#1E3A8A;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(10,23,70,.35),0 0 0 2px #fff}
+.bf-state svg{width:12px;height:12px;fill:#fff}
+.bf-state .vinyl-icon-pause{display:none}
+.vinyl-btn.is-playing .bf-state .vinyl-icon-play{display:none}
+.vinyl-btn.is-playing .bf-state .vinyl-icon-pause{display:block}
+
+/* Cards que levitan y ondean */
+.familia-card,.loc-card,.dc-card,.rsvp-card{animation:cardFloat 6.5s ease-in-out infinite;will-change:transform;overflow:hidden}
+.loc-card:nth-of-type(2){animation-delay:-2.2s}
+.dc-card:nth-child(2){animation-delay:-3.1s}
+@keyframes cardFloat{
+  0%,100%{transform:translateY(0) rotate(-.35deg) skewY(0)}
+  25%{transform:translateY(-6px) rotate(.25deg) skewY(.35deg)}
+  50%{transform:translateY(-10px) rotate(.4deg) skewY(0)}
+  75%{transform:translateY(-5px) rotate(-.2deg) skewY(-.35deg)}}
+.familia-card::after,.loc-card::after,.dc-card::before{content:'';position:absolute;top:0;bottom:0;left:-60%;width:45%;pointer-events:none;z-index:3;
+  background:linear-gradient(105deg,transparent 0%,rgba(255,255,255,.55) 45%,rgba(176,234,235,.35) 55%,transparent 100%);
+  transform:skewX(-18deg);animation:cardSheen 7s ease-in-out infinite}
+.loc-card:nth-of-type(2)::after{animation-delay:-3.5s}
+@keyframes cardSheen{0%,62%{left:-60%}100%{left:130%}}
+.familia-card,.loc-card{box-shadow:0 18px 44px rgba(30,58,138,.10),0 2px 10px rgba(126,135,146,.12)}
+
+/* Itinerario: burbujas vivas */
+.itin-icon-wrap{transition:background .5s,color .5s,box-shadow .5s,border-color .5s}
+.itin-icon-wrap::before,.itin-icon-wrap::after{content:'';position:absolute;inset:-2px;border-radius:50%;border:1px solid rgba(74,123,183,.45);animation:itinRing 3s ease-out infinite;pointer-events:none}
+.itin-icon-wrap::after{animation-delay:-1.5s}
+@keyframes itinRing{0%{transform:scale(1);opacity:.75}100%{transform:scale(1.75);opacity:0}}
+.itin-item.on .itin-icon-wrap{background:radial-gradient(circle at 35% 30%,#7FA6D6 0%,#4A7BB7 45%,#1E3A8A 100%);color:#fff;border-color:#DCE1E7;
+  box-shadow:0 0 0 4px rgba(176,234,235,.45),0 8px 26px rgba(30,58,138,.4)}
+.itin-item.on .itin-icon-wrap svg{animation:itinIcon 2.4s ease-in-out infinite}
+@keyframes itinIcon{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.12) rotate(-6deg)}}
+.itin-item.on .itin-time{color:#1E3A8A}
+
+/* Dress code (de xv-mia, sin copos) */
+.dc-note{text-align:center;font-family:var(--serif);font-style:italic;font-size:19px;letter-spacing:2px;text-transform:uppercase;color:var(--accent-deep);margin:4px 0 26px;font-weight:600}
+.dc-cards{display:flex;justify-content:center;align-items:stretch;gap:14px;max-width:392px;margin:6px auto 26px;perspective:900px}
+.dc-card{flex:1;margin:0;position:relative;border-radius:12px;padding:16px 10px 14px;display:flex;flex-direction:column;align-items:center;gap:10px;
+  background:radial-gradient(ellipse 90px 60px at 18% 6%,rgba(255,255,255,.95),transparent 62%),
+    radial-gradient(ellipse 80px 60px at 86% 88%,rgba(255,255,255,.9),transparent 60%),
+    repeating-linear-gradient(122deg,transparent 0 22px,rgba(255,255,255,.45) 22px 24px,transparent 24px 56px),
+    linear-gradient(158deg,#ffffff 0%,#f1fbfb 34%,#e2f4f6 68%,#d2eaf2 100%);
+  border:1px solid rgba(126,135,146,.45);box-shadow:0 10px 30px rgba(30,58,138,.14),inset 0 1px 0 rgba(255,255,255,.95)}
+.dc-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.98) 26%,rgba(126,135,146,.6) 50%,rgba(255,255,255,.98) 74%,transparent)}
+.dc-card img{height:190px;width:auto;display:block;position:relative;z-index:1}
+.dc-card figcaption{display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;z-index:1}
+.dc-card-lbl{font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent-deep)}
+.dc-card-sub{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink-soft);font-weight:500}
+@media (max-width:360px){.dc-cards{gap:10px}.dc-card{padding:12px 6px 10px}.dc-card-lbl{font-size:11px;letter-spacing:1.8px}}
+.dc-crown{display:inline-block;width:56px;height:40px;-webkit-mask:url('corona-mini.png') center/contain no-repeat;mask:url('corona-mini.png') center/contain no-repeat;
+  filter:drop-shadow(0 1px 1px rgba(0,26,110,.35));animation:crownBob 3.4s ease-in-out infinite}
+.dc-crown:nth-child(2){animation-delay:-.8s}.dc-crown:nth-child(3){animation-delay:-1.6s}.dc-crown:nth-child(4){animation-delay:-2.4s}
+@keyframes crownBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.dc-crown-row{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+
+/* Galería: espejo + giro automático */
+.wheel-scene{height:560px}
+.wheel-card{top:40%;-webkit-box-reflect:below 10px linear-gradient(to bottom,transparent 52%,rgba(255,255,255,.42) 100%)}
+.gallery{position:relative;overflow:hidden}
+.gallery::after{content:'';position:absolute;left:0;right:0;bottom:0;height:34%;pointer-events:none;
+  background:linear-gradient(to bottom,transparent,rgba(233,248,248,.55))}
+
+/* Lluvia de sobres (diseño boda-jeffersson-y-vanessa) */
+#regalos{position:relative;overflow:hidden}
+#regalos .sec-inner{position:relative;z-index:1}
+.env-rain{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.env-rain-item{position:absolute;top:-46px;will-change:transform;opacity:0}
+#regalos .env-interactive{display:flex;flex-direction:column;align-items:center;cursor:pointer;-webkit-tap-highlight-color:transparent;outline:none;border:none;background:none;padding:0;margin:26px auto 0;opacity:0}
+#regalos .env-body{perspective:700px;position:relative;width:min(258px,74vw);height:auto;aspect-ratio:260/200;filter:drop-shadow(0 10px 26px rgba(30,58,138,.22));animation:none}
+#regalos .env-body svg.env-svg{width:100%;height:100%;display:block}
+#regalos .env-flap-wrap{position:absolute;top:23%;left:6.9%;width:86.2%;height:43%;transform-origin:top center;transform-style:preserve-3d;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform .65s cubic-bezier(.4,0,.2,1);pointer-events:none;z-index:2}
+#regalos .env-interactive.open .env-flap-wrap{transform:rotateX(-175deg)}
+#regalos .env-seal{position:absolute;top:52%;left:50%;width:23%;aspect-ratio:1;transform:translate(-50%,-50%);z-index:3;transition:opacity .35s ease,transform .5s cubic-bezier(.4,0,.2,1);pointer-events:none}
+#regalos .env-interactive.open .env-seal{opacity:0;transform:translate(-50%,-50%) scale(.7)}
+#regalos .env-open-content{overflow:hidden;max-height:0;opacity:0;transition:max-height .55s .3s ease,opacity .4s .38s ease;display:flex;flex-direction:column;align-items:center;gap:8px;padding:0 16px;text-align:center;pointer-events:none}
+#regalos .env-interactive.open .env-open-content{max-height:320px;opacity:1;pointer-events:auto;margin-top:20px}
+#regalos .env-mailbox-icon{width:42px;height:42px;color:var(--accent-deep);margin-top:6px}
+#regalos .env-title{font-family:var(--display);font-style:italic;font-weight:600;font-size:clamp(26px,7.4vw,32px);line-height:1.3;padding:.08em 0;background:var(--silver-grad);background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#4F5863;animation:silverFlow 7s ease-in-out infinite;
+  background-image:linear-gradient(115deg,#1E3A8A 0%,#4A7BB7 30%,#9AA3AE 50%,#4A7BB7 70%,#1E3A8A 100%)}
+#regalos .env-desc{font-family:var(--serif);font-size:18px;font-weight:500;font-style:italic;color:var(--ink);line-height:1.7;max-width:300px}
+#regalos .env-tap-hint{font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-deep);margin-top:18px;opacity:0;transition:opacity .5s ease;position:relative;z-index:1}
+#regalos .env-tap-hint.show{opacity:.9;animation:envHintPulse2 2.4s ease-in-out infinite}
+#regalos .env-interactive.open~.env-tap-hint{opacity:0!important;animation:none;pointer-events:none}
+@keyframes envHintPulse2{0%,100%{opacity:.5}50%{opacity:.95}}
+#regalos .env-body.landed{animation:envBreathe2 3.6s ease-in-out infinite}
+@keyframes envBreathe2{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+
+/* Álbum: aurora + destellos + QR vivo */
+.album-sec{position:relative;isolation:isolate}
+.album-sec::before{content:'';position:absolute;inset:-20%;z-index:-1;pointer-events:none;
+  background:radial-gradient(circle at 20% 30%,rgba(74,123,183,.55),transparent 38%),radial-gradient(circle at 80% 25%,rgba(176,234,235,.28),transparent 34%),radial-gradient(circle at 55% 80%,rgba(220,225,231,.22),transparent 36%);
+  filter:blur(30px);animation:aurora 14s ease-in-out infinite alternate}
+@keyframes aurora{0%{transform:translate(0,0) rotate(0)}50%{transform:translate(4%,-3%) rotate(8deg)}100%{transform:translate(-4%,3%) rotate(-6deg)}}
+.album-spark{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;box-shadow:0 0 8px 2px rgba(220,225,231,.9);pointer-events:none;z-index:0;animation:twinkle var(--d,3s) ease-in-out infinite;animation-delay:var(--dl,0s);opacity:0}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:1;transform:scale(1.25)}}
+.album-sec .sec-inner{position:relative;z-index:1}
+.album-icon-wrap svg{animation:camPop 4s ease-in-out infinite;transform-origin:center}
+@keyframes camPop{0%,84%,100%{transform:scale(1);filter:drop-shadow(0 0 12px rgba(126,135,146,.22))}88%{transform:scale(1.14);filter:drop-shadow(0 0 22px rgba(255,255,255,.95))}}
+.album-sec .qr-outer{animation:qrFloat 5.5s ease-in-out infinite;overflow:visible}
+.album-sec .qr-outer::after{content:'';position:absolute;inset:-7px;border-radius:8px;z-index:-1;
+  background:conic-gradient(from var(--qa,0deg),#1E3A8A,#B0EAEB,#F4F7FA,#9AA3AE,#4A7BB7,#1E3A8A);animation:qrSpin 6s linear infinite;filter:blur(1px)}
+@property --qa{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes qrSpin{to{--qa:360deg}}
+@keyframes qrFloat{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-10px) rotate(1deg)}}
+
+/* RSVP: levita */
+.rsvp-card{animation:rsvpFloat 6s ease-in-out infinite;overflow:visible}
+@keyframes rsvpFloat{0%,100%{transform:translateY(0);box-shadow:0 24px 64px rgba(10,23,70,.08),0 4px 20px rgba(126,135,146,.12)}
+  50%{transform:translateY(-12px);box-shadow:0 40px 80px rgba(30,58,138,.18),0 0 0 1px rgba(176,234,235,.35),0 0 46px rgba(176,234,235,.35)}}
+
+/* Footer: nombre plateado con brillo + mariposas */
+.footer-names{background:linear-gradient(115deg,#9AA3AE 0%,#F4F7FA 30%,#B0EAEB 45%,#FFFFFF 55%,#AEB6C0 75%,#E3E8EE 100%);background-size:250% auto;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:silverFlow 6s ease-in-out infinite;padding:.08em .1em}
+.ft-bf{position:absolute;width:34px;height:29px;pointer-events:none;z-index:0;perspective:120px;opacity:.85;animation:ftDrift var(--t,16s) linear infinite;animation-delay:var(--dl,0s)}
+.ft-bf .bf-w{animation-duration:.55s;filter:drop-shadow(0 0 6px rgba(176,234,235,.6))}
+@keyframes ftDrift{0%{transform:translate(0,40px) rotate(8deg);opacity:0}10%{opacity:.85}50%{transform:translate(var(--x,60px),-120px) rotate(-10deg)}90%{opacity:.85}100%{transform:translate(calc(var(--x,60px)*-.4),-300px) rotate(6deg);opacity:0}}
+footer .footer-names,footer .footer-date,footer .footer-hr,footer .footer-credit{position:relative;z-index:1}
+.footer-hr{width:120px;opacity:1;background:linear-gradient(to right,transparent,#DCE1E7,transparent);animation:hrGrow 4s ease-in-out infinite}
+@keyframes hrGrow{0%,100%{width:60px;opacity:.5}50%{width:150px;opacity:1}}
+
+@media(prefers-reduced-motion:reduce){
+  .familia-card,.loc-card,.dc-card,.rsvp-card,.album-sec .qr-outer,.ft-bf,.album-sec::before,.dc-crown,.bf-fly,.bf-w{animation:none!important}}
 </style>
 </head>
 <body>
@@ -616,13 +770,12 @@ footer::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;b
 <div id="env-flash" aria-hidden="true"></div>
 
 <audio id="music" src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/audio/xv-ana-zoe-rivera-avina/cancion.mp3" preload="none" loop></audio>
-<button class="vinyl-btn" id="music-btn" type="button" aria-label="Reproducir música">
-  <div class="vinyl-tonearm"><div class="vinyl-tonearm-pivot"></div><div class="vinyl-tonearm-line"></div><div class="vinyl-tonearm-head"></div></div>
-  <div class="vinyl-spin"><div class="vinyl-disc"><div class="vinyl-sheen"></div><div class="vinyl-label-text">AZ<small>2026</small></div><div class="vinyl-hole"></div></div></div>
-  <div class="vinyl-icons">
-    <svg class="vinyl-icon-play" viewBox="0 0 24 24" fill="#B8C0C9" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-    <svg class="vinyl-icon-pause" viewBox="0 0 24 24" fill="#B8C0C9" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-  </div>
+<button class="vinyl-btn bf-btn" id="music-btn" type="button" aria-label="Reproducir música">
+  <span class="bf-fly" aria-hidden="true"><span class="bf-w l"></span><span class="bf-w r"></span></span>
+  <span class="bf-state" aria-hidden="true">
+    <svg class="vinyl-icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    <svg class="vinyl-icon-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+  </span>
 </button>
 
 <!-- gradientes compartidos de las mariposas del contador -->
@@ -716,6 +869,7 @@ footer::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;b
 
   <!-- ════════════════ DATE HERO ════════════════ -->
   <section class="date-hero">
+    <div class="dh-bg" aria-hidden="true"></div>
     <div class="dh-inner">
       <div class="date-eyebrow rv">Marca esta fecha</div>
       <h2 class="date-h rv">Mi <em>Gran Día</em></h2>
@@ -1024,7 +1178,7 @@ footer::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;b
         <div class="itin-item rv">
           <div class="itin-text itin-text--left">
             <span class="itin-time">5:00 p.m.</span>
-            <div class="itin-ev">Ceremonia</div>
+            <div class="itin-ev">Misa</div>
           </div>
           <div class="itin-icon-wrap">
             <svg viewBox="0 0 24 24"><path d="M12 2v4M12 2l-3 3M12 2l3 3"/><rect x="8" y="6" width="8" height="12" rx="1"/><path d="M10 6V4M14 6V4"/><line x1="10" y1="10" x2="14" y2="10"/><line x1="10" y1="13" x2="14" y2="13"/></svg>
@@ -1044,27 +1198,27 @@ footer::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;b
         <div class="itin-item rv">
           <div class="itin-text itin-text--left">
             <span class="itin-time">7:00 p.m.</span>
-            <div class="itin-ev">Cena</div>
+            <div class="itin-ev">Entrada y Vals</div>
           </div>
           <div class="itin-icon-wrap">
-            <svg viewBox="0 0 24 24"><path d="M3 11h18M5 7h14l1 4H4l1-4zM6 11v6a2 2 0 002 2h8a2 2 0 002-2v-6"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M8 3l8 0L12 11 8 3z"/><line x1="12" y1="11" x2="12" y2="19"/><line x1="9" y1="19" x2="15" y2="19"/></svg>
           </div>
         </div>
 
         <div class="itin-item rv">
           <div class="itin-icon-wrap">
-            <svg viewBox="0 0 24 24"><path d="M8 3l8 0L12 11 8 3z"/><line x1="12" y1="11" x2="12" y2="19"/><line x1="9" y1="19" x2="15" y2="19"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M3 11h18M5 7h14l1 4H4l1-4zM6 11v6a2 2 0 002 2h8a2 2 0 002-2v-6"/></svg>
           </div>
           <div class="itin-text itin-text--right">
             <span class="itin-time">8:00 p.m.</span>
-            <div class="itin-ev">Brindis y Vals</div>
+            <div class="itin-ev">Cena</div>
           </div>
         </div>
 
         <div class="itin-item rv">
           <div class="itin-text itin-text--left">
-            <span class="itin-time">8:30 p.m.</span>
-            <div class="itin-ev">Apertura de Pista</div>
+            <span class="itin-time">9:00 p.m.</span>
+            <div class="itin-ev">Baile Sorpresa</div>
           </div>
           <div class="itin-icon-wrap">
             <svg viewBox="0 0 24 24"><circle cx="8" cy="4" r="2"/><circle cx="16" cy="4" r="2"/><path d="M8 7c-2 1-3 4-2 7l2 5M16 7c2 1 3 4 2 7l-2 5"/><path d="M10 10l4-1"/></svg>
@@ -1073,21 +1227,11 @@ footer::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;b
 
         <div class="itin-item rv">
           <div class="itin-icon-wrap">
-            <svg viewBox="0 0 24 24"><path d="M12 3v1m0 16v1m-8-9H3m18 0h-1M5.6 5.6l.7.7m11.4 11.4l.7.7M5.6 18.4l.7-.7m11.4-11.4l.7-.7"/><circle cx="12" cy="12" r="4"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M9 18V6l12-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
           </div>
           <div class="itin-text itin-text--right">
-            <span class="itin-time">11:30 p.m.</span>
-            <div class="itin-ev">Trasnochado</div>
-          </div>
-        </div>
-
-        <div class="itin-item rv">
-          <div class="itin-text itin-text--left">
             <span class="itin-time">12:00 a.m.</span>
-            <div class="itin-ev">Banda · Cierre del Evento</div>
-          </div>
-          <div class="itin-icon-wrap">
-            <svg viewBox="0 0 24 24"><path d="M9 18V6l12-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            <div class="itin-ev">Banda</div>
           </div>
         </div>
 
@@ -1101,86 +1245,27 @@ footer::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;b
   <section class="sec section-surface dress" style="text-align:center">
     <div class="sec-flora" style="background-image:url('mariposas3.webp');opacity:.20"></div>
     <div class="sec-inner">
-      <div class="eyebrow">Código de Vestimenta</div>
-      <h2 class="rv">Etiqueta <em>Formal</em></h2>
-      <div class="dress-sub rv">Elegancia en cada detalle</div>
-
-      <!-- Siluetas vestimenta — estilo editorial -->
-      <div class="rv" style="display:flex;justify-content:center;gap:clamp(40px,12vw,72px);margin-bottom:28px;align-items:flex-end">
-        <!-- Hombre — traje formal con solapa y corbata -->
-        <div style="text-align:center">
-          <svg viewBox="0 0 100 220" width="75" fill="var(--ink)" style="opacity:.62;display:block;margin:0 auto 10px" xmlns="http://www.w3.org/2000/svg">
-            <!-- Cabeza -->
-            <ellipse cx="50" cy="22" rx="12" ry="14"/>
-            <!-- Cuello -->
-            <rect x="44" y="35" width="12" height="10" rx="2"/>
-            <!-- Torso / saco -->
-            <path d="M30 45 L26 48 L24 80 L26 150 L40 150 L40 140 L42 80 L44 55 L50 60 L56 55 L58 80 L60 140 L60 150 L74 150 L76 80 L74 48 L70 45 L56 42 L50 50 L44 42 Z"/>
-            <!-- Solapa izquierda -->
-            <path d="M44 42 L38 52 L44 65 L50 50 Z" fill="var(--surface)" stroke="var(--ink)" stroke-width=".8"/>
-            <!-- Solapa derecha -->
-            <path d="M56 42 L62 52 L56 65 L50 50 Z" fill="var(--surface)" stroke="var(--ink)" stroke-width=".8"/>
-            <!-- Corbata -->
-            <path d="M48 50 L50 75 L52 50 Z" fill="var(--gold-deep)" opacity=".7"/>
-            <!-- Pantalón izquierdo -->
-            <path d="M26 150 L28 210 L42 210 L40 150 Z"/>
-            <!-- Pantalón derecho -->
-            <path d="M60 150 L58 210 L72 210 L74 150 Z"/>
-            <!-- Zapatos -->
-            <ellipse cx="35" cy="213" rx="10" ry="4"/>
-            <ellipse cx="65" cy="213" rx="10" ry="4"/>
-          </svg>
-          <span style="font-family:var(--italiana);font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--ink-soft)">Caballeros</span>
-        </div>
-        <!-- Mujer — vestido largo de gala -->
-        <div style="text-align:center">
-          <svg viewBox="0 0 100 220" width="75" fill="var(--ink)" style="opacity:.62;display:block;margin:0 auto 10px" xmlns="http://www.w3.org/2000/svg">
-            <!-- Cabello -->
-            <ellipse cx="50" cy="18" rx="14" ry="16"/>
-            <path d="M36 14 Q34 28 38 35" fill="var(--ink)"/>
-            <path d="M64 14 Q66 28 62 35" fill="var(--ink)"/>
-            <!-- Cara (corte) -->
-            <ellipse cx="50" cy="20" rx="10" ry="12" fill="var(--surface)"/>
-            <!-- Cuello -->
-            <rect x="46" y="32" width="8" height="8" rx="2" fill="var(--ink)"/>
-            <!-- Hombros / escote -->
-            <path d="M32 44 Q38 38 46 40 L50 46 L54 40 Q62 38 68 44 L66 52 L34 52 Z"/>
-            <!-- Vestido — torso ajustado -->
-            <path d="M34 52 L32 60 L34 90 L38 95 L62 95 L66 90 L68 60 L66 52 Z"/>
-            <!-- Cintura -->
-            <rect x="36" y="88" width="28" height="5" rx="1" fill="var(--gold-deep)" opacity=".5"/>
-            <!-- Falda — amplia y fluida -->
-            <path d="M38 93 Q30 140 18 210 L82 210 Q70 140 62 93 Z"/>
-            <!-- Brillo de tela -->
-            <path d="M42 100 Q40 150 28 208" stroke="var(--surface)" stroke-width=".7" fill="none" opacity=".3"/>
-            <path d="M58 100 Q60 150 72 208" stroke="var(--surface)" stroke-width=".7" fill="none" opacity=".3"/>
-          </svg>
-          <span style="font-family:var(--italiana);font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--ink-soft)">Damas</span>
-        </div>
+      <div class="eyebrow">Etiqueta</div>
+      <h2 class="rv">Código de <em>Vestimenta</em></h2>
+      <div class="dc-note rv">Formal</div>
+      <div class="dc-cards rv">
+        <figure class="dc-card">
+          <img src="caballero.png" alt="Caballero con traje formal" loading="lazy">
+          <figcaption><span class="dc-card-lbl">Caballeros</span><span class="dc-card-sub">Traje formal</span></figcaption>
+        </figure>
+        <figure class="dc-card">
+          <img src="dama.png" alt="Dama con vestido largo" loading="lazy">
+          <figcaption><span class="dc-card-lbl">Damas</span><span class="dc-card-sub">Vestido largo</span></figcaption>
+        </figure>
       </div>
-
-      <p class="rv" style="font-family:var(--sans);font-weight:500;font-size:17px;color:var(--ink);line-height:1.75;margin-bottom:16px">Me honra tu presencia en código de etiqueta formal.<br>El color azul en todas sus tonalidades queda reservado para la quinceañera.</p>
-      <p class="rv" style="font-family:var(--sans);font-weight:500;font-size:17px;color:var(--ink);line-height:1.75;margin:0 auto 16px;max-width:400px;border:1px solid var(--hair-gold);padding:14px 18px">A partir del baile sorpresa todos podemos usar tenis, para estar más cómodos y no dejar de bailar.</p>
-
-      <a href="https://www.pinterest.com.mx/search/pins/?q=formal%20evening%20guest%20outfit%20champagne%20gold%20blush%20silver" target="_blank" rel="noopener" class="rv" style="display:inline-flex;align-items:center;gap:8px;padding:12px 28px;font-family:var(--italiana);font-size:12px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold-deep);text-decoration:none;border:1px solid rgba(126,135,146,.4);border-radius:50px;background:rgba(126,135,146,.06);transition:all .3s ease;margin-bottom:36px;cursor:pointer" onmouseover="this.style.background='rgba(126,135,146,.15)';this.style.borderColor='rgba(126,135,146,.6)'" onmouseout="this.style.background='rgba(126,135,146,.06)';this.style.borderColor='rgba(126,135,146,.4)'">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="var(--gold-deep)" style="flex-shrink:0;opacity:.7"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-        Ver Ideas de Outfits
-      </a>
-
-      <div class="rv" style="margin-bottom:36px">
-        <div class="swatch-group-title">Paleta Sugerida</div>
-        <p style="font-family:var(--sans);font-weight:500;font-size:16px;color:var(--ink);line-height:1.6;margin:14px auto 0;max-width:380px">Por confirmar</p>
+      <p class="rv" style="font-family:var(--sans);font-weight:500;font-size:17px;color:var(--ink);line-height:1.65;margin:0 auto 14px;max-width:380px">El color azul en todas sus tonalidades queda <strong style="color:var(--accent-deep)">reservado</strong> para la quinceañera</p>
+      <div class="dc-crown-row rv">
+        <span class="dc-crown" style="background-color:#b0eaeb" title="Azul claro"></span>
+        <span class="dc-crown" style="background-color:#61e1f2" title="Azul turquesa"></span>
+        <span class="dc-crown" style="background-color:#4A7BB7" title="Azul acero"></span>
+        <span class="dc-crown" style="background-color:#1E3A8A" title="Azul zafiro"></span>
       </div>
-
-      <div class="dress-avoid rv">
-        <div class="swatch-group-title">Colores a Evitar</div>
-        <div class="avoid-list">
-          <div class="avoid-item"><span class="avoid-c" style="background:#74a7fe"></span>Azul cielo</div>
-          <div class="avoid-item"><span class="avoid-c" style="background:#0056d6"></span>Azul rey</div>
-          <div class="avoid-item"><span class="avoid-c" style="background:#0042aa"></span>Azul marino</div>
-          <div class="avoid-item"><span class="avoid-c" style="background:#61e1f2"></span>Azul turquesa</div>
-        </div>
-      </div>
+      <p class="rv" style="font-family:var(--sans);font-weight:500;font-size:17px;color:var(--ink);line-height:1.75;margin:0 auto;max-width:400px;border:1px solid var(--hair-gold);padding:14px 18px;background:rgba(255,255,255,.6)">A partir del baile sorpresa todos podemos usar tenis, para estar más cómodos y no dejar de bailar.</p>
     </div>
   </section>
 
@@ -1215,22 +1300,48 @@ footer::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;b
   <div class="seam" style="--from:var(--surface);--to:var(--bg)" aria-hidden="true"></div>
 
   <!-- ════════════════ MESA DE REGALOS ════════════════ -->
-  <section class="sec section-bg" style="text-align:center">
-    <div class="sec-flora" style="background-image:url('mariposas2.webp');opacity:.22"></div>
+  <section class="sec section-bg" id="regalos" style="text-align:center">
+    <div class="env-rain" id="envRain" aria-hidden="true"></div>
     <div class="sec-inner">
       <div class="eyebrow">Mesa de Regalos</div>
       <h2>Lluvia de <em>Sobres</em></h2>
-      <div class="gifts-wrap rv">
-        <svg viewBox="0 0 64 48" width="72" height="54" aria-hidden="true" style="margin:18px auto 6px;display:block"><g fill="none" stroke="var(--gold)" stroke-width="1.4"><rect x="4" y="6" width="56" height="38" rx="2"/><path d="M4 8 L32 28 L60 8"/></g></svg>
-        <p class="gifts-sub">Tu presencia es mi mejor regalo. Si deseas tener un detalle conmigo, habrá una lluvia de sobres el día del evento, o puedes sorprenderme con el regalo de tu preferencia.</p>
-      </div>
+      <button class="env-interactive" id="envGift" type="button" aria-label="Sobre — toca para abrir" aria-expanded="false">
+        <div class="env-body" id="envGiftBody">
+          <svg class="env-svg" viewBox="0 0 260 200" preserveAspectRatio="none" aria-hidden="true">
+            <defs><linearGradient id="envPaper" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#e9f8f8"/><stop offset="100%" stop-color="#ffffff"/></linearGradient></defs>
+            <rect x="18" y="52" width="224" height="132" rx="8" fill="url(#envPaper)" stroke="rgba(30,58,138,.45)" stroke-width="1.4"/>
+            <path d="M18 184 L130 110 L242 184" stroke="rgba(30,58,138,.28)" stroke-width="1" fill="none"/>
+          </svg>
+          <div class="env-flap-wrap" aria-hidden="true">
+            <svg viewBox="0 0 224 86" preserveAspectRatio="none" style="width:100%;height:100%;display:block">
+              <defs><linearGradient id="envFlap" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#dff3f4"/><stop offset="100%" stop-color="#ffffff"/></linearGradient></defs>
+              <path d="M0 0 L112 86 L224 0 Z" fill="url(#envFlap)" stroke="rgba(30,58,138,.45)" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <svg class="env-seal" viewBox="0 0 60 60" aria-hidden="true">
+            <defs><radialGradient id="sealG" cx="40%" cy="35%" r="70%"><stop offset="0%" stop-color="#4A7BB7"/><stop offset="100%" stop-color="#1E3A8A"/></radialGradient></defs>
+            <circle cx="30" cy="30" r="28" fill="url(#sealG)"/>
+            <circle cx="30" cy="30" r="28" fill="none" stroke="#0f2160" stroke-width="2" opacity=".55"/>
+            <circle cx="30" cy="30" r="21.5" fill="none" stroke="#DCE1E7" stroke-width="1.1" opacity=".9"/>
+            <text x="30" y="36" text-anchor="middle" font-family="'Playfair Display', Georgia, serif" font-style="italic" font-size="17" fill="#EEF1F4">AZ</text>
+          </svg>
+        </div>
+        <div class="env-open-content" aria-live="polite">
+          <svg class="env-mailbox-icon" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <rect x="8" y="22" width="36" height="24" rx="5"/><path d="M8 30 Q26 38 44 30"/><rect x="18" y="8" width="16" height="16" rx="2"/><path d="M18 8 Q26 3 34 8"/>
+          </svg>
+          <p class="env-title">Tu presencia es mi mejor regalo</p>
+          <p class="env-desc">Si deseas tener un detalle conmigo, habrá una lluvia de sobres el día del evento, o puedes sorprenderme con el regalo de tu preferencia.</p>
+        </div>
+      </button>
+      <p class="env-tap-hint" id="envGiftHint">Toca para abrir</p>
     </div>
   </section>
 
   <div class="seam" style="--from:var(--bg);--to:#06103A" aria-hidden="true"></div>
 
   <!-- ════════════════ ÁLBUM COMPARTIDO ════════════════ -->
-  <section class="sec sec-dark" style="text-align:center;overflow:hidden">
+  <section class="sec sec-dark album-sec" id="albumSec" style="text-align:center;overflow:hidden">
     <div class="sec-inner">
       <div class="eyebrow">Comparte el Momento</div>
       <h2 style="font-size:clamp(28px,7vw,44px)">Álbum <em>Compartido</em></h2>
@@ -1329,6 +1440,7 @@ footer::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;b
 
   <!-- ════════════════ FOOTER ════════════════ -->
   <footer>
+    <span class="ft-bf" style="left:10%;bottom:8%;--t:15s;--dl:0s;--x:70px" aria-hidden="true"><span class="bf-w l"></span><span class="bf-w r"></span></span><span class="ft-bf" style="left:78%;bottom:4%;--t:18s;--dl:-6s;--x:-60px" aria-hidden="true"><span class="bf-w l"></span><span class="bf-w r"></span></span><span class="ft-bf" style="left:45%;bottom:0%;--t:21s;--dl:-12s;--x:40px" aria-hidden="true"><span class="bf-w l"></span><span class="bf-w r"></span></span><span class="ft-bf" style="left:25%;bottom:12%;--t:17s;--dl:-9s;--x:-50px" aria-hidden="true"><span class="bf-w l"></span><span class="bf-w r"></span></span>
     <div class="footer-names rv">Ana Zoé</div>
     <div class="footer-date rv">21 · Noviembre · 2026 · Cd. Hidalgo, Mich.</div>
     <div class="footer-hr"></div>
@@ -1473,7 +1585,8 @@ function launchInvitation(){
 })();
 
 // ── HERO PARALLAX ──
-gsap.to('.hero-bg-wrap',{yPercent:18,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+gsap.fromTo('.hero-bg-wrap',{scale:1,yPercent:0},{scale:1.22,yPercent:-7,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});
+gsap.fromTo('.dh-bg',{scale:1,yPercent:4},{scale:1.24,yPercent:-6,ease:'none',scrollTrigger:{trigger:'.date-hero',start:'top bottom',end:'bottom top',scrub:1}});
 gsap.to('.hero-content',{yPercent:-6,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
 
 // ── DATE HERO COUNT-TO ──
@@ -1490,8 +1603,10 @@ gsap.fromTo('.date-roman',{opacity:0,letterSpacing:'1em'},{opacity:1,letterSpaci
 const countTarget=new Date('2026-11-21T17:00:00-06:00').getTime();
 const cdEls={d:document.getElementById('cd-d'),h:document.getElementById('cd-h'),m:document.getElementById('cd-m'),s:document.getElementById('cd-s')};
 let lastVals={d:'',h:'',m:'',s:''};
+function flapOf(el){var b=el&&el.closest('.cd-block');if(!b)return;b.classList.remove('flap');void b.offsetWidth;b.classList.add('flap');}
 function flipOn(el,newVal){
   if(!el||el.textContent===newVal) return;
+  flapOf(el);
   gsap.fromTo(el,{rotateX:0},{rotateX:-90,duration:.22,ease:'power2.in',onComplete:()=>{
     el.textContent=newVal;
     gsap.fromTo(el,{rotateX:90},{rotateX:0,duration:.32,ease:'power3.out'});
@@ -1512,6 +1627,7 @@ tick();setInterval(tick,1000);
 gsap.fromTo('.cd-block',{opacity:0,y:36,rotateX:-25},{opacity:1,y:0,rotateX:0,duration:1.1,stagger:.12,ease:'power4.out',scrollTrigger:{trigger:'.countdown-grid',start:'top 82%'}});
 
 // ── ITINERARY ICONS ──
+document.querySelectorAll('.itin-item').forEach(function(item){ScrollTrigger.create({trigger:item,start:'top 68%',end:'bottom 32%',toggleClass:'on'});});
 document.querySelectorAll('.itin-item').forEach(function(item,idx){
   const icon=item.querySelector('.itin-icon-wrap');
   const text=item.querySelector('.itin-text');
@@ -1547,12 +1663,13 @@ document.querySelectorAll('.itin-item').forEach(function(item,idx){
     rot=r;
     gsap.set(ring,{rotateY:rot});
   }
+  var AUTO=prefersReduced?0:-0.11;
   function inertia(){
-    if(Math.abs(vel)<0.05){ vel=0; return; }
-    vel*=0.94;
+    vel+= (AUTO-vel)*0.035;
     setRot(rot+vel);
     rafId=requestAnimationFrame(inertia);
   }
+  rafId=requestAnimationFrame(inertia);
 
   ring.addEventListener('mousedown',function(e){
     cancelAnimationFrame(rafId);
@@ -1617,21 +1734,6 @@ document.querySelectorAll('.itin-item').forEach(function(item,idx){
   lbClose.addEventListener('click',closeLightbox);
   lb.addEventListener('click',function(e){ if(e.target===lb) closeLightbox(); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('is-open')) closeLightbox(); });
-})();
-
-// ── SOBRE INTERACTIVO (regalos) ──
-(function(){
-  var btn=document.querySelector('.env-interactive');
-  if(!btn) return;
-  btn.addEventListener('click',function(){
-    var isOpen=btn.classList.toggle('open');
-    btn.setAttribute('aria-expanded',isOpen?'true':'false');
-  });
-  btn.addEventListener('touchstart',function(e){
-    e.preventDefault();
-    var isOpen=btn.classList.toggle('open');
-    btn.setAttribute('aria-expanded',isOpen?'true':'false');
-  },{passive:false});
 })();
 
 // ── PARTÍCULAS DORADAS ──
@@ -2073,6 +2175,52 @@ window.addEventListener('resize',()=>ScrollTrigger.refresh());
   ['pointerdown','touchend','click','keydown'].forEach(function(ev){
     document.addEventListener(ev,onGesture,{capture:true,passive:true});
   });
+})();
+
+/* ── VIDA: lluvia de sobres (de boda-jeffersson-y-vanessa) ── */
+(function(){
+  var sec=document.getElementById('regalos'),rain=document.getElementById('envRain'),
+      btn=document.getElementById('envGift'),body=document.getElementById('envGiftBody'),hint=document.getElementById('envGiftHint');
+  if(!sec||!rain||!btn)return;
+  var raining=true,landed=false,spawnCall=null,alive=0,MAX_ALIVE=18;
+  function makeEnvelope(){
+    if(alive>=MAX_ALIVE)return; alive++;
+    var el=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    el.setAttribute('viewBox','0 0 34 24'); el.setAttribute('class','env-rain-item');
+    var w=16+Math.random()*16; el.style.width=w+'px'; el.style.height=(w*24/34)+'px'; el.style.left=(Math.random()*100)+'%';
+    var c=Math.random()<.5?'#4A7BB7':'#7E8792';
+    el.innerHTML='<rect x="1" y="1" width="32" height="22" rx="2.5" fill="#ffffff" stroke="'+c+'" stroke-width="1.2"/><path d="M1 1 L17 13 L33 1" fill="none" stroke="'+c+'" stroke-width="1.2" stroke-linejoin="round"/>';
+    rain.appendChild(el);
+    var H=sec.offsetHeight+80,dur=5+Math.random()*4;
+    function kill(){if(el.parentNode){el.remove();alive--;}}
+    gsap.timeline({onComplete:kill})
+      .fromTo(el,{y:-46,x:0,rotation:(Math.random()-.5)*50,opacity:0},{y:H,x:(Math.random()-.5)*70,rotation:(Math.random()-.5)*160,duration:dur,ease:'none'},0)
+      .fromTo(el,{opacity:0},{opacity:.8,duration:dur*.18,ease:'power1.out'},0)
+      .to(el,{opacity:0,duration:dur*.25,ease:'power1.in'},dur*.75);
+  }
+  function scheduleSpawn(){spawnCall=gsap.delayedCall(.52,function(){if(!raining)return;makeEnvelope();scheduleSpawn();});}
+  function startRain(){for(var i=0;i<7;i++)gsap.delayedCall(i*.26,makeEnvelope);scheduleSpawn();}
+  function stopRain(){raining=false;if(spawnCall)spawnCall.kill();gsap.to(rain,{opacity:0,duration:1.1,ease:'power2.out',onComplete:function(){rain.innerHTML='';alive=0;}});}
+  function land(){
+    if(landed)return;landed=true;stopRain();
+    gsap.fromTo(btn,{opacity:0,y:-150,rotation:-12,scale:.82},{opacity:1,y:0,rotation:0,scale:1,duration:1.15,ease:'back.out(1.5)',
+      onComplete:function(){if(body)body.classList.add('landed');if(hint)hint.classList.add('show');}});
+  }
+  startRain();
+  ScrollTrigger.create({trigger:sec,start:'center 55%',once:true,onEnter:land,onEnterBack:land});
+  btn.addEventListener('click',function(e){
+    if(e)e.preventDefault(); if(!landed)return;
+    var open=btn.classList.toggle('open'); btn.setAttribute('aria-expanded',open?'true':'false');
+    if(open&&body)body.classList.remove('landed'); ScrollTrigger.refresh();
+  });
+})();
+/* ── VIDA: destellos del álbum ── */
+(function(){
+  var sec=document.getElementById('albumSec'); if(!sec)return;
+  for(var i=0;i<26;i++){var sp=document.createElement('span');sp.className='album-spark';
+    sp.style.left=(Math.random()*100)+'%';sp.style.top=(Math.random()*100)+'%';
+    sp.style.setProperty('--d',(2.2+Math.random()*3)+'s');sp.style.setProperty('--dl',(-Math.random()*5)+'s');
+    var z=Math.random()<.3?5:3;sp.style.width=sp.style.height=z+'px';sec.appendChild(sp);}
 })();
 </script>
 </body>
